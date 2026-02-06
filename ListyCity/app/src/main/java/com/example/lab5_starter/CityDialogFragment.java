@@ -17,6 +17,7 @@ public class CityDialogFragment extends DialogFragment {
     interface CityDialogListener {
         void updateCity(City city, String title, String year);
         void addCity(City city);
+        boolean removeCity(String cityName, String cityProvince);
     }
     private CityDialogListener listener;
 
@@ -56,8 +57,7 @@ public class CityDialogFragment extends DialogFragment {
             assert city != null;
             editMovieName.setText(city.getName());
             editMovieYear.setText(city.getProvince());
-        }
-        else {
+        } else {
             city = null;}
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -70,6 +70,8 @@ public class CityDialogFragment extends DialogFragment {
                     String year = editMovieYear.getText().toString();
                     if (Objects.equals(tag, "City Details")) {
                         listener.updateCity(city, title, year);
+                    } else if (Objects.equals(tag, "City Information")) {
+                        listener.removeCity(title, year);
                     } else {
                         listener.addCity(new City(title, year));
                     }
